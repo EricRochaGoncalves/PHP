@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    container_name: php-container
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: Y@sp2006
+      MYSQL_DATABASE: meu_banco
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
